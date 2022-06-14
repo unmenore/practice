@@ -1,5 +1,5 @@
 
-import db_with_coords from "./db_with_coords.json" assert { type: "json" };
+import dbWithCoords from "./db_with_coords.json" assert { type: "json" };
 
 window.addEventListener("load", onDocumentLoad);
 function onDocumentLoad() { ymaps.ready(initYMaps) }
@@ -34,9 +34,9 @@ function powerStationMark(powerStationListItem){
 function prepareData() {
   let data = []
   
-  for(const regionName in db_with_coords) {
-    for(const powerStationName in db_with_coords[regionName]) {
-      let item = db_with_coords[regionName][powerStationName]
+  for(const regionName in dbWithCoords) {
+    for(const powerStationName in dbWithCoords[regionName]) {
+      let item = dbWithCoords[regionName][powerStationName]
       
       if (typeof item.coord !== "undefined") {
         data.push({
