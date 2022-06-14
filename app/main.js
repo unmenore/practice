@@ -10,20 +10,20 @@ function initYMaps() {
     zoom: 5
   })
   
-  let nppList = prepareData()
-  for (const nppId in nppList) {
-    myMap.geoObjects.add(nppMark(nppList[nppId]));
+  let powerStationList = prepareData()
+  for (const powerStationId in powerStationList) {
+    myMap.geoObjects.add(powerStationMark(powerStationList[powerStationId]));
   }
 }
 
-function nppMark(nppListItem){
+function powerStationMark(powerStationListItem){
   return new ymaps.GeoObject({
     geometry: {
       type: "Point",
-      coordinates: nppListItem.coord,
+      coordinates: powerStationListItem.coord,
     },
     properties: {
-      iconContent: nppListItem.name,
+      iconContent: powerStationListItem.name,
     }
   }, {
     preset: 'islands#blackStretchyIcon',
@@ -34,8 +34,8 @@ function prepareData() {
   let data = []
   
   for(const regionName in db_with_coords) {
-    for(const nppName in db_with_coords[regionName]) {
-      let item = db_with_coords[regionName][nppName]
+    for(const powerStationName in db_with_coords[regionName]) {
+      let item = db_with_coords[regionName][powerStationName]
       
       if (typeof item.coord !== "undefined") {
         data.push({
