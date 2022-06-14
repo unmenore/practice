@@ -7,7 +7,8 @@ function onDocumentLoad() { ymaps.ready(initYMaps) }
 function initYMaps() {
   let myMap = new ymaps.Map("map", {
     center: [55.76, 37.64],
-    zoom: 5
+    zoom: 5,
+    controls: ['typeSelector', 'zoomControl', 'rulerControl'],
   })
   
   let powerStationList = prepareData()
