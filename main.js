@@ -24,7 +24,9 @@ function initYMaps() {
 }
 
 function prepareData() {
-  // var mydata = JSON.parse(db_with_coords);
-  console.log(db_with_coords)
+  data = []
+  for (var [key, value] of db_with_coords) {
+    console.log(key + " = " + value);
+  }
 }
 
