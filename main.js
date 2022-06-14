@@ -17,8 +17,16 @@ function initYMaps() {
 }
 
 function nppMark(nppListItem){
-  return new ymaps.Placemark([nppListItem[1], nppListItem[2]], {
-    balloonContent: nppListItem[0]
+  return new ymaps.GeoObject({
+    geometry: {
+      type: "Point",
+      coordinates: nppListItem.coord,
+    },
+    properties: {
+      iconContent: nppListItem.name,
+    }
+  }, {
+    preset: 'islands#blackStretchyIcon',
   })
 }
   
@@ -30,11 +38,10 @@ function prepareData() {
       let item = db_with_coords[regionName][nppName]
       
       if (typeof item.coord !== "undefined") {
-        data.push([
-          item.Name,
-          item.coord.lat,
-          item.coord.long,
-        ])
+        data.push({
+          name: item.Name,
+          coord: [item.coord.lat, item.coord.long],
+        })
       }
     }
   }
