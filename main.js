@@ -2,31 +2,44 @@
 import db_with_coords from "./db_with_coords.json" assert { type: "json" };
 
 window.addEventListener("load", onDocumentLoad);
-
-function onDocumentLoad() {
-  ymaps.ready(initYMaps)
-}
+function onDocumentLoad() { ymaps.ready(initYMaps) }
 
 function initYMaps() {
-  var myMap = new ymaps.Map("map", {
+  let myMap = new ymaps.Map("map", {
     center: [55.76, 37.64],
     zoom: 5
   })
   
-  prepareData()
-  
-  myMap.geoObjects
-  .add(
-    new ymaps.Placemark([55.684758, 37.738521], {
-      balloonContent: 'цвет <strong>воды пляжа бонди</strong>'
-    })
-  );
-}
-
-function prepareData() {
-  data = []
-  for (var [key, value] of db_with_coords) {
-    console.log(key + " = " + value);
+  let nppList = prepareData()
+  for (const nppId in nppList) {
+    myMap.geoObjects.add(nppMark(nppList[nppId]));
   }
 }
 
+function nppMark(nppListItem){
+  return new ymaps.Placemark([nppListItem[1], nppListItem[2]], {
+    balloonContent: nppListItem[0]
+  })
+}
+  
+function prepareData() {
+  let data = []
+  
+  for(const regionName in db_with_coords) {
+    for(const nppName in db_with_coords[regionName]) {
+      let item = db_with_coords[regionName][nppName]
+      
+      if (typeof item.coord !== "undefined") {
+        data.push([
+          item.Name,
+          item.coord.lat,
+          item.coord.long,
+        ])
+      }
+    }
+  }
+  
+  return data
+}
+  
+  
