@@ -24,15 +24,24 @@ function powerStationMark(powerStationListItem){
       coordinates: powerStationListItem.coord,
     },
     properties: {
-      iconContent: powerStationListItem.name,
+      balloonContent: powerStationListItem.name,
     }
   }, {
-    preset: 'islands#blackStretchyIcon',
+    preset: 'islands#circleIcon',
   })
 }
   
 function prepareData() {
   let data = []
+  let powerStationClassesMap = {
+    "ОДУ Северо-Запада": "iconClassNorthWest",
+    "ОДУ Центра": "iconClassCenter",
+    "ОДУ Юга": "iconClassSouth",
+    "ОДУ Средней Волги": "iconClassCenterVolgi",
+    "ОДУ Урала": "iconClassUral",
+    "ОДУ Сибири": "iconClassSibiria",
+    "ОДУ Востока": "iconCLassEast"
+  }
   
   for(const regionName in dbWithCoords) {
     for(const powerStationName in dbWithCoords[regionName]) {
@@ -42,6 +51,7 @@ function prepareData() {
         data.push({
           name: item.Name,
           coord: [item.coord.lat, item.coord.long],
+          iconclass: item.oduName,
         })
       }
     }
